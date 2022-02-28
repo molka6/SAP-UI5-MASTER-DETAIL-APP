@@ -1,0 +1,53 @@
+<mvc:View controllerName="listdetail.controller.List" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page">
+					<content>
+						<SplitApp id="splitappid" masterButtonText="Master" masterNavigate="" afterMasterNavigate="" masterButton="" detailNavigate="">
+							<masterPages>
+								<Page id="masterpageid" title="Invoices Basic Info" titleLevel="Auto" showNavButton="true" showHeader="true" showSubHeader="true"
+									navButtonText="" navButtonTooltip="" enableScrolling="true" icon="" navButtonTap="" navButtonPress="">
+									<content>
+										<List id="emplist" headerText="list" class="sapUiResponsiveMargin" width="auto" items="{invoice>/Invoices}">
+											<items>
+												<ObjectListItem title="{invoice>ProductName}"
+													number="{ parts: [{path: 'invoice>ExtendedPrice'}, {path: 'view>/currency'}], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+													numberState="{= ${invoice>ExtendedPrice} > 50 ? 'Error' : 'Success' }" numberUnit="{view>/currency}" type="Navigation"
+													press="onObjectItemPress"></ObjectListItem>
+											</items>
+											<headerToolbar>
+												<Toolbar>
+													<content>
+														<Title text="Search data" title="Search"></Title>
+														<ToolbarSpacer/>
+														<SearchField search="onSearch" width="50%"></SearchField>
+													</content>
+												</Toolbar>
+											</headerToolbar>
+										</List>
+									</content>
+								</Page>
+							</masterPages>
+							<detailPages>
+								<Page id="detailpageid" title="Invoices Information" titleLevel="Auto" showNavButton="true" showHeader="true" showSubHeader="true"
+									navButtonText="" navButtonTooltip="" enableScrolling="true" icon="" navButtonTap="" navButtonPress="">
+									<content>
+										<List id="projectlistid">
+											<items>
+												<StandardListItem title="{invoice>ProductName}" description="{invoice>ShippedDate}" icon="sap-icon://activity-2"></StandardListItem>
+												<StandardListItem title="{invoice>ShipperName}" icon="sap-icon://activities"></StandardListItem>
+												<StandardListItem title="{invoice>ShippedDate}" icon="sap-icon://away"></StandardListItem>
+												<StandardListItem title="Quantity = {invoice>Quantity}" icon="{path: 'invoice>Quantity',formatter: '.formatter.statusText'}"></StandardListItem>
+											</items>
+										</List>
+									</content>
+								</Page>
+							</detailPages>
+						</SplitApp>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
